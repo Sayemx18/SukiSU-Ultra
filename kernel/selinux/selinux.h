@@ -9,17 +9,39 @@
 #define KSU_COMPAT_USE_SELINUX_STATE
 #endif
 
-void setup_selinux(const char *);
+void ksu_setup_selinux(const char *);
 
-void setenforce(bool);
+void ksu_setenforce(bool);
 
+<<<<<<< HEAD
 bool getenforce(void);
 
 bool is_ksu_domain(void);
+=======
+bool ksu_getenforce();
 
-bool is_zygote(void *cred);
+bool ksu_is_ksu_domain();
+>>>>>>> 5214720e (kernel: Implement susfs v1.5.5 patch)
 
+bool ksu_is_zygote(void *cred);
+
+<<<<<<< HEAD
 void apply_kernelsu_rules(void);
+=======
+void ksu_apply_kernelsu_rules();
+
+#ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
+bool susfs_is_sid_equal(void *sec, u32 sid2);
+u32 susfs_get_sid_from_name(const char *secctx_name);
+u32 susfs_get_current_sid(void);
+void susfs_set_zygote_sid(void);
+bool susfs_is_current_zygote_domain(void);
+void susfs_set_ksu_sid(void);
+bool susfs_is_current_ksu_domain(void);
+void susfs_set_init_sid(void);
+bool susfs_is_current_init_domain(void);
+#endif
+>>>>>>> 5214720e (kernel: Implement susfs v1.5.5 patch)
 
 u32 ksu_get_devpts_sid(void);
 
