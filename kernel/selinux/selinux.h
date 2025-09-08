@@ -13,21 +13,12 @@ void ksu_setup_selinux(const char *);
 
 void ksu_setenforce(bool);
 
-<<<<<<< HEAD
-bool getenforce(void);
-
-bool is_ksu_domain(void);
-=======
 bool ksu_getenforce();
 
 bool ksu_is_ksu_domain();
->>>>>>> 5214720e (kernel: Implement susfs v1.5.5 patch)
 
 bool ksu_is_zygote(void *cred);
 
-<<<<<<< HEAD
-void apply_kernelsu_rules(void);
-=======
 void ksu_apply_kernelsu_rules();
 
 #ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
