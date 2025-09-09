@@ -32,7 +32,6 @@ bool susfs_is_current_ksu_domain(void);
 void susfs_set_init_sid(void);
 bool susfs_is_current_init_domain(void);
 #endif
->>>>>>> 5214720e (kernel: Implement susfs v1.5.5 patch)
 
 u32 ksu_get_devpts_sid(void);
 
