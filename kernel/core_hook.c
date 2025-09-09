@@ -1057,7 +1057,6 @@ static void ksu_try_umount(const char *mnt, bool check_mnt, int flags)
 #endif
 {
 	struct path path;
-	int ret;
 	int err = kern_path(mnt, 0, &path);
 	if (err) {
 		return;
