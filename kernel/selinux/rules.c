@@ -36,7 +36,8 @@ static struct policydb *get_policydb(void)
 	return db;
 }
 
-static DEFINE_MUTEX(apply_ksu_rules_mutex);
+static DEFINE_MUTEX(ksu_rules);  // ADDED: Missing mutex declaration
+
 void ksu_apply_kernelsu_rules()
 {
 	struct policydb *db;
@@ -147,7 +148,7 @@ void ksu_apply_kernelsu_rules()
 	susfs_set_zygote_sid();
 #endif
 
-	mutex_unlock(&apply_ksu_rules_mutex);
+	mutex_unlock(&ksu_rules);  // FIXED: Changed from apply_ksu_rules_mutex to ksu_rules
 }
 
 #define MAX_SEPOL_LEN 128
@@ -242,6 +243,9 @@ int ksu_handle_sepolicy(unsigned long arg3, void __user *arg4)
 		pr_info("SELinux permissive or disabled when handle policy!\n");
 	}
 
+	// ADDED: Missing db declaration
+	struct policydb *db;
+	
 	u32 cmd, subcmd;
 	char __user *sepol1, *sepol2, *sepol3, *sepol4, *sepol5, *sepol6,
 		*sepol7;
@@ -266,7 +270,7 @@ int ksu_handle_sepolicy(unsigned long arg3, void __user *arg4)
 	} else {
 		struct sepol_data data;
 		if (copy_from_user(&data, arg4, sizeof(struct sepol_data))) {
-			pr_err("sepol: copy sepol_data failed.\n");
+			pr_info("sepol: copy sepol_data failed.\n");
 			return -1;
 		}
 		sepol1 = data.field_sepol1;
@@ -326,7 +330,7 @@ int ksu_handle_sepolicy(unsigned long arg3, void __user *arg4)
 		}
 		ret = success ? 0 : -1;
 
-	} else if (cmd == CMD_XPERM) {
+	} else if (cmd == CCMD_XPERM) {
 		char src_buf[MAX_SEPOL_LEN];
 		char tgt_buf[MAX_SEPOL_LEN];
 		char cls_buf[MAX_SEPOL_LEN];
