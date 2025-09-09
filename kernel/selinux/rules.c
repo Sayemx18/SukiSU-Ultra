@@ -330,7 +330,7 @@ int ksu_handle_sepolicy(unsigned long arg3, void __user *arg4)
 		}
 		ret = success ? 0 : -1;
 
-	} else if (cmd == CCMD_XPERM) {
+	} else if (cmd == CMD_XPERM) {
 		char src_buf[MAX_SEPOL_LEN];
 		char tgt_buf[MAX_SEPOL_LEN];
 		char cls_buf[MAX_SEPOL_LEN];
