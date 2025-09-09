@@ -29,6 +29,8 @@
 
 bool ksu_is_compat __read_mostly = false; // let it here
 
+static bool is_boot_phase = true;
+
 static const char KERNEL_SU_RC[] =
 	"\n"
 
